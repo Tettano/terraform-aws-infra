@@ -27,7 +27,7 @@ variable "password" {
 }
 
 variable "tags" {
-  type =  map(string)
+  type = map(string)
 }
 
 variable "db_subnet_group_name" {

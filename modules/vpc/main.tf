@@ -5,7 +5,7 @@ resource "aws_vpc" "main" {
   cidr_block = var.main_vpc_cidr_block
 
   tags = var.vpc_tags
-  }
+}
 
 ##############################
 # 2️⃣ Public Subnet
@@ -28,7 +28,7 @@ resource "aws_subnet" "private" {
   availability_zone = var.private_subnet_availability_zone
 
   tags = var.private_name_tag
- 
+
 }
 
 ##############################
@@ -93,38 +93,38 @@ resource "aws_security_group" "main_sg" {
 }
 
 #  Security Group RDS
-  resource "aws_security_group" "rds_sg" {
-    name = "rds-sg"
-    description = "security-group-rds"
-    vpc_id = aws_vpc.main.id
- 
-  
-    dynamic "ingress" {
-      for_each = var.ingress_rds
-      content {
-        from_port   = ingress.value.from_port
-        to_port     = ingress.value.to_port
-        protocol    = ingress.value.protocol
-        cidr_blocks = ingress.value.cidr_blocks
-      }
+resource "aws_security_group" "rds_sg" {
+  name        = "rds-sg"
+  description = "security-group-rds"
+  vpc_id      = aws_vpc.main.id
+
+
+  dynamic "ingress" {
+    for_each = var.ingress_rds
+    content {
+      from_port   = ingress.value.from_port
+      to_port     = ingress.value.to_port
+      protocol    = ingress.value.protocol
+      cidr_blocks = ingress.value.cidr_blocks
     }
+  }
 
   egress {
-    from_port = 0
-    to_port   = 0
-    protocol  = "-1"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
-    }
-
-   tags = {
-     Name = "security-group-rds"
-   }
   }
+
+  tags = {
+    Name = "security-group-rds"
+  }
+}
 
 # RDS Subnet Group
 resource "aws_db_subnet_group" "rds_subnet_group" {
- name = var.rds_subnet_group
- subnet_ids = [aws_subnet.private.id]
- tags = var.rds_tags
+  name       = var.rds_subnet_group
+  subnet_ids = [aws_subnet.private.id]
+  tags       = var.rds_tags
 }
 

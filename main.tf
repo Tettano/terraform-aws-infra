@@ -1,5 +1,5 @@
 module "vpc" {
-  source = "./modules/vpc" 
+  source = "./modules/vpc"
 
   main_vpc_cidr_block              = var.main_vpc_cidr_block
   vpc_tags                         = var.vpc_tags
@@ -21,25 +21,25 @@ module "vpc" {
 module "ec2" {
   source = "./modules/ec2"
 
-  ami                              = var.ami
-  instance_type                    = var.instance_type
-  subnet_id                        = module.vpc.public_subnet_id
-  sg_id                            = module.vpc.main_sg_id
-  instance_tags                    = var.instance_tags
+  ami           = var.ami
+  instance_type = var.instance_type
+  subnet_id     = module.vpc.public_subnet_id
+  sg_id         = module.vpc.main_sg_id
+  instance_tags = var.instance_tags
 }
 
 module "rds" {
   source = "./modules/rds"
 
-  allocated_storage                = var.allocated_storage
-  engine                           = var.engine
-  version_engine                   = var.version_engine
-  instance_class                   = var.instance_class
-  identifier                       = var.identifier
-  username                         = var.username
-  db_subnet_group_name             = module.vpc.rds_subnet_group_name
-  rds_sg_id                        = module.vpc.rds_sg_id
-  password                         = var.password
-  tags                             = var.rds_tags
+  allocated_storage    = var.allocated_storage
+  engine               = var.engine
+  version_engine       = var.version_engine
+  instance_class       = var.instance_class
+  identifier           = var.identifier
+  username             = var.username
+  db_subnet_group_name = module.vpc.rds_subnet_group_name
+  rds_sg_id            = module.vpc.rds_sg_id
+  password             = var.password
+  tags                 = var.rds_tags
 
 }

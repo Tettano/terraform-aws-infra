@@ -103,7 +103,7 @@ variable "version_engine" {
 }
 
 variable "instance_class" {
-  type = string  
+  type = string
 }
 
 variable "identifier" {
@@ -115,6 +115,6 @@ variable "username" {
 }
 
 variable "password" {
-  type =  string 
+  type      = string
   sensitive = true
 }
