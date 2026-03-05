@@ -91,27 +91,27 @@ variable "rds_tags" {
 }
 
 variable "allocated_storage" {
-  type = number
+  type    = number
   default = 20
 }
 
 variable "engine" {
-  type = string
+  type    = string
   default = "mysql"
 }
 
 variable "version_engine" {
-  type = string
+  type    = string
   default = "8.0"
 }
 
 variable "instance_class" {
-  type = string
+  type    = string
   default = "db.t3.micro"
 }
 
 variable "identifier" {
-  type = string
+  type    = string
   default = "my-rds-instance"
 }
 
