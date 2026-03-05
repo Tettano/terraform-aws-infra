@@ -29,5 +29,6 @@ output "rds_subnet_group_name" {
 }
 
 output "rds_sg_id" {
-  value = aws_security_group.rds_sg.id
+  description = "Security group ID for RDS"
+  value       = module.vpc.rds_sg_id
 }
