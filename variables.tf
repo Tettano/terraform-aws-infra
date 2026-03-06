@@ -67,17 +67,22 @@ variable "ingress_rds" {
   }))
 }
 
-# EC2
+# EC2 Amazon Linux 2 
 variable "ami" {
-  type = string
+  type    = string
+  default = "ami-0c1c30571d2dae5c3" # Amazon Linux 2 ap-southeast-1
 }
 
 variable "instance_type" {
-  type = string
+  type    = string
+  default = "t2.micro"
 }
 
 variable "instance_tags" {
   type = map(string)
+  default = {
+    "name" = "web-server"
+  }
 }
 
 
