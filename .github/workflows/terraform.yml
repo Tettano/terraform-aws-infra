@@ -43,7 +43,7 @@ jobs:
         run: terraform validate
 
       - name: Terraform Plan
-        run: terraform plan
+        run: terraform  plan -input=false
         env:
           TF_VAR_username: ${{ secrets.TF_VAR_username }}
           TF_VAR_password: ${{ secrets.TF_VAR_password }}
@@ -74,7 +74,7 @@ jobs:
         run: terraform init
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve
+        run: terraform apply -auto-approve -input=false
         env:
           TF_VAR_username: ${{ secrets.TF_VAR_username }}
           TF_VAR_password: ${{ secrets.TF_VAR_password }}

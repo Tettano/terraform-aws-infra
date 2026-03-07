@@ -1,50 +1,61 @@
 # VPC
 variable "main_vpc_cidr_block" {
-  type = string
+  type    = string
+  default = "10.0.0.0/16"
 }
 
 variable "vpc_tags" {
-  type = map(string)
+  type    = map(string)
+  default = { Name = "main-vpc" }
 }
 
 # Public Subnet
 variable "public_subnet_cidr_block" {
-  type = string
+  type    = string
+  default = "10.0.1.0/24"
 }
 
 variable "public_subnet_availability_zone" {
-  type = string
+  type    = string
+  default = "ap-southeast-1a"
 }
 
 variable "public_name_tag" {
-  type = map(string)
+  type    = map(string)
+  default = { Name = "public-subnet" }
 }
 
 # Private Subnet
 variable "private_subnet_cidr_block" {
-  type = string
+  type    = string
+  default = "10.0.2.0/24"
 }
 
 variable "private_subnet_availability_zone" {
-  type = string
+  type    = string
+  default = "ap-southeast-1b"
 }
 
 variable "private_name_tag" {
-  type = map(string)
+  type    = map(string)
+  default = { Name = "private-subnet" }
 }
 
 # Internet Gateway
 variable "internet_gateway_tag" {
-  type = map(string)
+  type    = map(string)
+  default = { Name = "main-igw" }
 }
 
 # Route Table
 variable "public_route_table_cidr" {
-  type = string
+  type    = string
+  default = "0.0.0.0/0"
 }
 
 variable "public_route_table_name" {
-  type = map(string)
+  type    = map(string)
+  default = { Name = "public-route-table" }
 }
 
 # Security Group
@@ -55,6 +66,20 @@ variable "ingress_rules" {
     protocol    = string
     cidr_blocks = list(string)
   }))
+  default = [
+    {
+      from_port   = 22
+      to_port     = 22
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    },
+    {
+      from_port   = 80
+      to_port     = 80
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+  ]
 }
 
 # Security Group RDS
@@ -65,12 +90,20 @@ variable "ingress_rds" {
     protocol    = string
     cidr_blocks = list(string)
   }))
+  default = [
+    {
+      from_port   = 3306
+      to_port     = 3306
+      protocol    = "tcp"
+      cidr_blocks = ["10.0.0.0/16"]
+    }
+  ]
 }
 
-# EC2 Amazon Linux 2 
+# EC2
 variable "ami" {
   type    = string
-  default = "ami-0c1c30571d2dae5c3" # Amazon Linux 2 ap-southeast-1
+  default = "ami-0c1c30571d2dae5c3"
 }
 
 variable "instance_type" {
@@ -81,18 +114,22 @@ variable "instance_type" {
 variable "instance_tags" {
   type = map(string)
   default = {
-    "name" = "web-server"
+    Name = "web-server"
   }
 }
 
-
-#RDS
+# RDS Subnet Group
 variable "rds_subnet_group" {
-  type = string
+  type    = string
+  default = "rds-subnet-group"
 }
 
 variable "rds_tags" {
   type = map(string)
+  default = {
+    Name = "rds"
+    Env  = "dev"
+  }
 }
 
 variable "allocated_storage" {
