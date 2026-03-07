@@ -103,7 +103,7 @@ variable "ingress_rds" {
 # EC2
 variable "ami" {
   type    = string
-  default = "ami-0c1c30571d2dae5c3"
+  default = "ami-0df7a207adb9748c7"
 }
 
 variable "instance_type" {

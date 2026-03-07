@@ -25,7 +25,7 @@ variable "public_name_tag" {
   type        = map(string)
 }
 
-# Private Subnet
+# Private Subnet 1
 variable "private_subnet_cidr_block" {
   description = "CIDR block for the private subnet"
   type        = string
@@ -39,6 +39,23 @@ variable "private_subnet_availability_zone" {
 variable "private_name_tag" {
   description = "Name tag for the private subnet"
   type        = map(string)
+}
+
+# Private subnet 2 
+
+variable "private_subnet_cidr_block_2" {
+  type    = string
+  default = "10.0.3.0/24"
+}
+
+variable "private_subnet_availability_zone_2" {
+  type    = string
+  default = "ap-southeast-1c"
+}
+
+variable "private_name_tag_2" {
+  type    = map(string)
+  default = { Name = "private-subnet-2" }
 }
 
 # Internet Gateway

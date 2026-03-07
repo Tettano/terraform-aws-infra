@@ -31,6 +31,14 @@ resource "aws_subnet" "private" {
 
 }
 
+resource "aws_subnet" "private_2" {
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = var.private_subnet_cidr_block_2
+  availability_zone = var.private_subnet_availability_zone_2
+
+  tags = var.private_name_tag_2
+}
+
 ##############################
 # 4️⃣ Internet Gateway
 ##############################
@@ -124,7 +132,7 @@ resource "aws_security_group" "rds_sg" {
 # RDS Subnet Group
 resource "aws_db_subnet_group" "rds_subnet_group" {
   name       = var.rds_subnet_group
-  subnet_ids = [aws_subnet.private.id]
+  subnet_ids = [aws_subnet.private.id, aws_subnet.private_2]
   tags       = var.rds_tags
 }
 
