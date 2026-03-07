@@ -132,7 +132,7 @@ resource "aws_security_group" "rds_sg" {
 # RDS Subnet Group
 resource "aws_db_subnet_group" "rds_subnet_group" {
   name       = var.rds_subnet_group
-  subnet_ids = [aws_subnet.private.id, aws_subnet.private_2]
+  subnet_ids = [aws_subnet.private.id, aws_subnet.private.id]
   tags       = var.rds_tags
 }
 
